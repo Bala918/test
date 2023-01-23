@@ -1,0 +1,6 @@
+A "whitelist" is a list of items that are approved or acceptable. In the context of Frappe, a white list may refer to a list of allowed or permitted users, IP addresses, or other entities. Frappe is a free and open-source web framework written in Python that is used to build web applications and websites. Some possible uses of a Frappe white list might include:
+
+Allowing only certain users or groups of users to access certain resources or functionality within a Frappe-powered application or website.
+Limiting access to certain parts of a Frappe-powered application or website to only trusted IP addresses or networks.
+Implementing security measures to protect against unauthorized access or malicious activity by adding IP addresses or users to a blacklist (i.e., a list of items that are not allowed or permitted).
+It's worth noting that the specific use and implementation of a white list in a Frappe-powered application or website will depend on the specific needs and requirements of the application or website in question.

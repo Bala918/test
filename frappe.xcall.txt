@@ -1,0 +1,29 @@
+In Frappe, frappe.xcall is a function that is used to call a method or function in a separate process or thread. The syntax for calling frappe.xcall is as follows:
+
+Copy code
+frappe.xcall(function, *args, **kwargs)
+Here is a brief explanation of each of the arguments:
+
+function: This is the name of the method or function that you want to call. It should be a string that specifies the fully qualified name of the function (e.g., "my_module.my_function").
+
+*args: This is an optional argument that allows you to pass additional arguments to the function as a tuple.
+
+**kwargs: This is an optional argument that allows you to pass additional arguments to the function as a dictionary.
+
+Here is an example of how you might use frappe.xcall to call a function in a separate process or thread:
+
+Copy code
+# Import the frappe module
+import frappe
+
+# Define a function that we want to call asynchronously
+def my_function(arg1, arg2):
+    print(arg1, arg2)
+
+# Call the function asynchronously using frappe.xcall
+frappe.xcall(my_function, "hello", "world")
+This example would call the my_function function asynchronously, passing the arguments "hello" and "world" to the function. The calling code would not block while the function is being executed.
+
+
+
+

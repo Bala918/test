@@ -1,0 +1,43 @@
+@frappe.whitelist()
+def get_attendance_by_date(from_date,to_date,from_time,to_time,matrix_name): 
+	matrix = frappe.get_doc('Matrix Settings',matrix_name)
+	req_fields="userid,username,processdate,punch1,punch1_date,punch1_time,punch2,punch2_date,punch2_time,punch3,punch3_date,punch3_time,punch4,punch4_date,punch4_time,workingshift,latein,earlyout,overtime,worktime,shiftstart,shiftend,firsthalf,secondhalf,summary"
+	date_range = from_date+"-"+to_date
+	#shift_end_elapsed = from_time[0:5]+'-'+to_time[0:5]
+	#+"shift-end-elapsed="+shift_end_elapsed+';'
+	url = matrix.attendance_url+"date-range="+date_range+';'+"field-name="+req_fields+";"+"format=json"
+	user_id = matrix.user_id
+	user_passwd = get_decrypted_password('Matrix Settings',matrix_name,'user_passwd')
+	try:
+		response = requests.request("GET", url, auth=(user_id, user_passwd))
+		mrx_log = frappe.new_doc("Matrix Log")
+		mrx_log.update({
+			"posting_date":frappe.utils.today(),
+			"posting_time": now(),
+			"log": response.text,
+			"status_code": response.status_code,
+			#"from_datetime":datetime.strptime(from_date, '%d%m%Y%H%M%S'),
+			#"to_datetime": datetime.strptime(to_date, '%d%m%Y%H%M%S')
+			#"status": response.status
+			})
+		mrx_log.save(ignore_permissions = True)
+		frappe.db.commit()
+		frappe.msgprint(_("log Created"))
+		return print(response.text)
+
+	except Exception as e:
+		mrx_log = frappe.new_doc("Matrix Log")
+		mrx_log.update({
+			"posting_date":frappe.utils.today(),
+			"posting_time": now(),
+			"log": response.text,
+			"status_code": response.status_code,
+			#"from_datetime":datetime.strptime(from_date, '%d%m%Y%H%M%S'),
+			#"to_datetime":datetime.strptime(to_date, '%d%m%Y%H%M%S')
+			#"status": response.stat
+			#"status": response.status
+		})
+		mrx_log.save(ignore_permissions = True)
+		frappe.db.commit()
+		frappe.msgprint(_("log Created"))
+		return print(response.text)
